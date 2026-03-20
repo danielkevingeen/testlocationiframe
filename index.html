@@ -1,19 +1,29 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentação API - Vistoria de Entrega</title>
-    <style>
-    </style>
-</head>
+<html>
 <body>
-aaa
-<iframe 
-  src="https://testlocationiframe.tiiny.site" 
-  width="100%" 
-  height="400" 
-  allow="geolocation">
-</iframe>
+    <h3>Teste de Localização no Iframe</h3>
+    <button onclick="getLocation()">Clique para Testar GPS</button>
+    <p id="status"></p>
+
+    <script>
+        function getLocation() {
+            const status = document.getElementById('status');
+            if (navigator.geolocation) {
+                status.innerHTML = "Solicitando permissão...";
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => {
+                        status.innerHTML = `Sucesso! Lat: ${pos.coords.latitude}, Lon: ${pos.coords.longitude}`;
+                    },
+                    (err) => {
+                        status.innerHTML = `Erro: ${err.message} (Código: ${err.code})`;
+                    }
+                );
+            } else {
+                status.innerHTML = "Geolocalização não suportada neste navegador.";
+            }
+			
+			console.log(document.featurePolicy.allowsFeature('geolocation'));
+        }
+    </script>
 </body>
 </html>
